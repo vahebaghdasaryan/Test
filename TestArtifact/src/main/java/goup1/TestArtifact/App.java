@@ -4,7 +4,7 @@ package goup1.TestArtifact;
  * Hello world!
  *
  */
-public class AppRenamed 
+public class App 
 {
     public static void main( String[] args )
     {
