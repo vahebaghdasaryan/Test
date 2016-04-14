@@ -1,0 +1,64 @@
+<div class="content-top-nav">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" href="#">RULES</span>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="btn btn-default" ng-click="vc.openNewRuleDialog($event)">New Rule</a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right search" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search rule" ng-model="vc.filter.search">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="table-wrap">
+    <form class="form-horizontal">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="checkbox-col">
+                        <div class="styled-checkbox">
+                            <select-all ng-model="vc.selectedRules"></select-all>
+                        </div>
+                    </th>
+                    <th>Rule Name</th>
+                    <th>Criterion</th>
+                    <th>Targets</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rule in vc.rules | filter : vc.comparator">
+                <td class="checkbox-col">
+                    <div class="styled-checkbox">
+                        <select-item value="rule.id"></select-item>
+                        <label></label>
+                    </div>
+                </td>
+                <td><span class="name-of-rule">{{rule.title}}</span></td>
+                <td>
+                    <div><b>Sites: </b>{{rule.sites | propertyValues : 'SiteName' | concatenate : ', '}}</div>
+                    <div><b>Divisions: </b>{{rule.divisions | concatenate : ', '}}</div>
+                    <div><b>Roles: </b>{{rule.roles | concatenate : ', '}}</div>
+                </td>
+                <td><span>{{rule.target}}</span></td>
+                <td class="table-actions-col">
+                    <a href="#" class="glyphicon glyphicon-pencil edit-row tb-btns" ng-click="vc.openApplyRuleDialog($event, rule)"></a>
+                    <a href="#" class="glyphicon glyphicon-remove delete-row tb-btns" ng-click="vc.openDeleteRuleDialog($event, rule)"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

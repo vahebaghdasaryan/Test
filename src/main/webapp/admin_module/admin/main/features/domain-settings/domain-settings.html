@@ -1,0 +1,42 @@
+<div class="content-top-nav">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" href="#">DOMAIN SETTINGS</span>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="btn btn-default" ng-click="vc.openSetupSSODialog($event)">Setup SSO</a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default" ng-click="vc.openLoginMessageDialog($event)">Update Login Message</a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default" ng-click="vc.openChangePasswordDialog($event)">Change Password</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!--
+<div>
+    <ul>
+        <li ng-repeat-start="(gkey, group) in vc.domainPreferences">
+            <input id="id_{{gkey}}" type="checkbox" ng-model="group.enabled">
+            <label for="id_{{gkey}}">{{gkey}}</label>
+        </li>
+        <li ng-repeat-end style="margin-left: 30px;">
+            <ul>
+                <li ng-repeat="(key, value) in group.preferences">
+                    <input id="id_{{key}}" type="checkbox" ng-model="value" ng-disabled="!group.enabled">
+                    <label for="id_{{key}}">{{key}}</label>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</div>-->

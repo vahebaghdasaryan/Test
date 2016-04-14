@@ -1,0 +1,18 @@
+<div drawer="{{ac.alwaysShowMenu ? 'none' : 'left'}}">
+    <a class="hit-logo" ng-if="!ac.alwaysShowMenu">
+        <img src="admin/assets/images/logo.png" alt="Home"/>
+    </a>
+    <div id="left-column" ng-if="showNavigationMenu()">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"
+                ng-if="hasAccess(item)"
+                ng-class="menuClass(item.name)"
+                ng-repeat="item in menuItems">
+
+                <a ng-href="{{item.path}}">
+                    <span class="fa {{item.icon}}"></span>{{item.title | uppercase}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div>
+    <div id="modal_header" class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">VIEW AS {{dc.user['Title'] | uppercase}} {{dc.user['FirstName'] | uppercase}} {{dc.user['LastName'] | uppercase}}</h4>
+    </div>
+    <uib-tabset justified="true">
+        <uib-tab heading="SKILLS">
+            <div class="modal-body">
+                <div class="form-group row skills-progress-wrap">
+                    <div class="col-sm-4">
+                        <span class="progress-label">Your Site:</span>
+                        <circular-progress percent="dc.progress.site" class="circle-progress user-view-progress"></circular-progress>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="progress-label">Your Division:</span>
+                        <circular-progress percent="dc.progress.division" class="circle-progress user-view-progress"></circular-progress>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="progress-label">You:</span>
+                        <circular-progress percent="dc.progress.you" class="circle-progress user-view-progress"></circular-progress>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="total-compl">5 completed</span>
+                    <div class="clear"></div>
+                    <div>
+                        <div class="list-heading">
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <span>Show:</span>
+                                </div>
+                                <div class="col-sm-3 no-right-padding">
+                                    <select class="selectpicker form-control">
+                                        <option value="false">All skills</option>
+                                        <option value="true">Completed skills</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 no-right-padding">
+                                    <select id="skill_category" name="skillCategory" ng-options="item for item in dc.skills.list | propertyValues : 'Category'"
+                                            ng-model="dc.skills.filter.category" class="selectpicker form-control">
+                                        <option value="">Select a category</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="skill_level" name="skillLevel"
+                                            ng-options="item for item in dc.skills.list | propertyValues : 'Level'"
+                                            ng-model="dc.skills.filter.level" class="selectpicker form-control">
+                                        <option value="">Select a level</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="styled-list">
+                            <li ng-repeat="item in dc.skills.list | filter : dc.skills.filterByCategoryAndLevel">
+                                <div>
+                                    <span class="skill-name" ng-click="dc.skills.toggleSkillCompletedStatus($event, item['SkillID'])">
+                                        <a href="#" class="fl-right complete-status completed"
+                                           ng-class="dc.skills.status[item['SkillID']] ? '' : 'completed'">
+                                        </a>
+                                        {{item['SkillName']}} / <span class="skill-descr">{{item['Description']}}</span></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+
+        <uib-tab heading="CERTIFICATES">
+            <div class="modal-body">
+                <div class="form-group">
+                    <ul class="certificates-list">
+                        <li ng-repeat="certificate in dc.certificates">
+                            <a ng-href="{{certificate.url}}" target="_blank" class="certificate-name"><span class="glyphicon"></span>{{certificate.name}}</a>
+                            <a ng-href="{{certificate.url}}" download="{{certificate.name}}"
+                               class="fl-right btn-default glyphicon glyphicon-cloud-download"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+        <button type="submit" class="btn btn-default" ng-click="dc.submit()">OK</button>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">DELETE USER</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group">
+                <p>Are you sure you want to delete the user with email address <b ng-bind="dc.user['Email']"></b>?
+                This operation cannot be reversed!</p>
+            </div>
+        </div>
+        <div class="modal-footer" ng-class="{'loading' : dc.loading}">
+            <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+            <img ng-if="dc.loading" class="button-loader" src="admin/assets/images/preloader-small.gif">
+            <button class="btn btn-default" type="button" ng-click="dc.submit()">DELETE</button>
+        </div>
+    </form>
+</div>

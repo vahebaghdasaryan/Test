@@ -1,0 +1,22 @@
+<div class="header-area" ng-controller="HeaderController as hc">
+    <span class="glyphicon glyphicon-menu-hamburger" ng-click="openLeftDrawer();" ng-if="!ac.alwaysShowMenu"></span>
+
+    <a href="#" class="hit-logo">
+        <img src="admin/assets/images/logo.png" alt="Home"/>
+    </a>
+
+    <div class="header-right" ng-if="ac.userInfo">
+        <div id="user-area" uib-dropdown>
+            <div class="img-wrap">
+                <img src="admin/assets/images/user-dummy.png"/>
+            </div>
+            <a href="#" class="user-name dropdown-toggle" uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">
+                {{ac.userInfo.firstName}} {{ac.userInfo.lastName}}
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu uib-dropdown-menu">
+                <li><a ng-href="{{Path.LOGOUT}}" class="logout" title="Logout">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,181 @@
+<div>
+    <div id="modal_header" class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">NEW USER</h4>
+    </div>
+    <form name="newUserForm" novalidate>
+        <div class="modal-body">
+
+            <form-general-error form="newUserForm"></form-general-error>
+
+            <div ng-show="dc.unexpectedError" class="alert alert-danger">
+                <span class="glyphicon glyphicon-flag"></span>
+                <span>{{dc.unexpectedError}}</span>
+            </div>
+
+            <div class="form-group">
+                <label style="color: #376493;"><span class="asterisk">*</span>fields are required!</label>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email: <span class="asterisk">*</span></label>
+                <input type="email" id="email" class="form-control" name="email" autocomplete="off"
+                       ng-model="dc.user.email" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" ng-required="true"/>
+                <span ng-messages="newUserForm.email.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                    <span ng-message="required">Email address is required</span>
+                    <span ng-message="pattern">Email address should have valid email format</span>
+                </span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label>Title:</label>
+                    <select class="selectpicker form-control" ng-model="dc.user.title">
+                        <option value="">Select title</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Ms.">Ms.</option>
+                        <option value="Dr.">Dr.</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="firstName">First Name: <span class="asterisk">*</span></label>
+                    <input type="text" id="firstName" name="firstName" class="form-control" ng-model="dc.user.firstName" ng-required="true" autocomplete="off"/>
+                    <span ng-messages="newUserForm.firstName.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                        <span ng-message="required">First name is required</span>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label for="lastName">Last Name: <span class="asterisk">*</span></label>
+                    <input type="text" id="lastName" name="lastName" class="form-control" ng-model="dc.user.lastName" ng-required="true" autocomplete="off"/>
+                    <span ng-messages="newUserForm.lastName.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                        <span ng-message="required">Last name is required</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Access Level:</label>
+                    <select class="selectpicker form-control" title="System Administrator" ng-model="dc.user.userRole">
+                        <option value="">Select user role</option>
+                        <option value="0">User</option>
+                        <option value="1">Site Admin</option>
+                        <option value="2">System Admin</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label>Password: <span class="asterisk">*</span></label>
+                    <input type="password" class="form-control autofill-prevented" name="password" ng-model="dc.user.password"
+                           ng-model-options="{allowInvalid: true}" readonly onfocus="this.removeAttribute('readonly')"
+                           ng-minlength="6" ng-required="true"/>
+                    <span ng-messages="newUserForm.password.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                        <span ng-message="required">Password is required</span>
+                        <span ng-message="minlength">Password should have at least 6 characters</span>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label>Confirm password: <span class="asterisk">*</span></label>
+                    <input type="password" class="form-control" name="confirmPassword" ng-model="dc.confirmPassword"
+                           ng-model-options="{allowInvalid: true}" readonly onfocus="this.removeAttribute('readonly')"
+                           ng-required="true" password-verify="dc.user.password"/>
+                    <span ng-messages="newUserForm.confirmPassword.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                        <span ng-message="required">Password confirmation is required</span>
+                        <span ng-message="passwordVerify">Password confirmation does not match password</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="styled-checkbox">
+                    <input id="force-reset-password" type="checkbox" ng-model="dc.user.isForceResetPassword"/>
+                    <label for="force-reset-password">Force User to reset password next time they login</label>
+                </div>
+                <div class="styled-checkbox">
+                    <input id="disable-prerequisites" type="checkbox" ng-model="dc.user.disablePrerequisites"/>
+                    <label for="disable-prerequisites">Disable Prerequisites<span>(Prerequisites will be applied for this user)</span></label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Sites: <span class="asterisk">*</span></label>
+                <tags-input ng-model="dc.userSites" name="sites" min-length="1" placeholder="Type a site name" display-property="SiteName" required="true">
+                    <auto-complete source="dc.sitesFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+                <span ng-messages="newUserForm.sites.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                    <span ng-message="required">Sites is required</span>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Specialties/Divisions</label>
+                <tags-input ng-model="dc.userDivisions" min-length="1" placeholder="Type a division name">
+                    <auto-complete source="dc.divisionsFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+            </div>
+
+            <div class="form-group">
+                <label>Roles</label>
+                <tags-input ng-model="dc.userRoles" min-length="1" placeholder="Type a role name">
+                    <auto-complete source="dc.rolesFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="pref-email">Pref. Email:</label>
+                    <input id="pref-email" name="prefEmail" class="form-control" type="email" autocomplete="off"
+                           pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$" ng-model="dc.user.prefEmail">
+                    <span ng-messages="newUserForm.prefEmail.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                        <span ng-message="pattern">Email address should have valid email format</span>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <label for="external-id">External Id:</label>
+                    <input id="external-id" type="text" class="form-control" ng-model="dc.user.externalId" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="supervisor">Assigned Supervisor:</label>
+                    <input id="supervisor" type="text" class="form-control" ng-model="dc.user.assignedSupervisor" autocomplete="off">
+                </div>
+                <div class="col-sm-6">
+                    <label for="npi">NPI:</label>
+                    <input id="npi" name="npi" type="text" number-only minlength="10" maxlength="10"
+                           class="form-control" ng-model="dc.user.npi" autocomplete="off">
+                    <span ng-messages="newUserForm.npi.$error" ng-show="newUserForm.$submitted" class="input-error-msg">
+                        <span ng-message="minlength">NPI should contain 10 digits</span>
+                        <span ng-message="maxlength">NPI should contain 10 digits</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="styled-checkbox">
+                    <input id="auto-assign" type="checkbox" ng-model="dc.user.disableAutoAssign"/>
+                    <label for="auto-assign">Do not invoke Auto Assign Skill Rules</label>
+                </div>
+            </div>
+
+            <!-- TODO: enable if has permission-->
+            <div class="form-group" ng-if="false">
+                <label for="custom-field">Custom Field:</label>
+                <input id="custom-field" type="text" class="form-control" ng-model="dc.user.customfield">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+            <button type="submit" class="btn btn-default" ng-click="newUserForm.$valid ? dc.submit() : ac.$anchorScroll('modal_header')">OK</button>
+        </div>
+    </form>
+</div>

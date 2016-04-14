@@ -1,0 +1,150 @@
+<div class="content-top-nav">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" href="#">USERS</span>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="btn btn-default" id="add_user" ng-click="vc.openAddUserDialog($event)">Add User</a>
+                    </li>
+                    <li class="dropdown" uib-dropdown>
+                        <a href="#" class="dropdown-toggle black" uib-dropdown-toggle role="button"
+                           aria-haspopup="true" aria-expanded="false">More Actions
+                            <span class="caret-wrap"><span class="caret"></span></span></a>
+                        <ul class="dropdown-menu uib-dropdown-menu black" aria-labelledby="split-button">
+                            <li><a href="#" ng-click="vc.openBulkLoadUsersDialog($event)">User Bulk Load</a></li>
+                            <li><a href="#" ng-click="vc.openAssignRolesDialog($event)">Assign Roles</a></li>
+                            <li><a href="#" ng-click="vc.openAssignSitesDialog($event)">Assign Sites</a></li>
+                            <li><a href="#" ng-click="vc.openAssignDivisionsDialog($event)">Assign Specialty/ Division</a></li>
+                            <li><a href="#" ng-click="vc.openBulkDeleteUsersDialog($event)">Delete Selected</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right search" role="search">
+                    <div class="form-group search test">
+                        <input type="text" class="form-control" placeholder="Search user"
+                               ng-model="vc.filter.search" ng-model-options="{debounce: 1000}" ng-change="vc.applyFilter()">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                    <button class="btn btn-default" ng-class="{'active' : vc.showAdvanceFilter}" ng-click="vc.showAdvanceFilter = !vc.showAdvanceFilter">
+                        Advanced Search
+                        <span class="glyphicon glyphicon-info-sign"
+                              uib-tooltip="Filter is active" tooltip-placement="top"
+                              ng-if="vc.filter.division || vc.filter.site || vc.filter.role || vc.filter.startDate || vc.filter.endDate"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div id="filter-block" class="animate-show" ng-show="vc.showAdvanceFilter">
+        <form class="form-inline" name="advancedSearchForm">
+            <div class="filter-section">
+                <div class="form-group">
+                    <label>Filter by:</label>
+                    <select class="selectpicker" title="Select a role" ng-model="vc.filter.role">
+                        <option value="">All roles</option>
+                        <option ng-repeat="role in vc.roles">{{role}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="selectpicker" title="Select a division" ng-model="vc.filter.division">
+                        <option value="">All divisions</option>
+                        <option ng-repeat="division in vc.divisions">{{division}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="selectpicker" title="Select a site" ng-model="vc.filter.site">
+                        <option value="">All sites</option>
+                        <option ng-repeat="site in vc.sites">{{site['SiteName']}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group filter-block">
+                <label>Created between:</label>
+                <div class="datepicker-wrap">
+                    <input type="text" name="fromDate" placeholder="Start date" is-open="vc.sddOpen" ng-required="vc.filter.endDate"
+                           uib-datepicker-popup ng-model="vc.filter.startDate" onfocus="this.blur()" ng-click="vc.sddOpen = !vc.sddOpen"/>
+                    <span class="glyphicon glyphicon-calendar" ng-click="vc.sddOpen = !vc.sddOpen"></span>
+                </div>
+                <div class="col-combine"><label>and</label></div>
+                <div class="datepicker-wrap">
+                    <input type="text" name="toDate" placeholder="End date" is-open="vc.eddOpen" ng-required="vc.filter.startDate"
+                           uib-datepicker-popup ng-model="vc.filter.endDate" popup-placement="auto bottom-right" onfocus="this.blur()" ng-click="vc.eddOpen = !vc.eddOpen"/>
+                    <span class="glyphicon glyphicon-calendar" ng-click="vc.eddOpen = !vc.eddOpen"></span>
+                </div>
+            </div>
+
+            <div class="fl-right">
+                <a href="#" class="text-link" ng-click="vc.resetFilter($event)">Reset</a>
+                <input type="submit" class="btn btn-default" ng-click="advancedSearchForm.$valid && vc.applyFilter()" value="APPLY">
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="table-wrap">
+    <form class="form-horizontal">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="checkbox-col">
+                    <div class="styled-checkbox">
+                        <select-all ng-model="vc.selectedUsers"></select-all>
+                    </div>
+                </th>
+                <th>Name &amp; Email</th>
+                <th>Access level</th>
+                <th class="site-col">Site</th>
+                <th>Specialty/Division</th>
+                <th>Role</th>
+                <th class="skills-col">Skills assigned</th>
+                <th class="viewed-col">viewed</th>
+                <th class="compl-col">completed</th>
+                <th>Date added</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in vc.users">
+                <td class="checkbox-col">
+                    <div class="styled-checkbox">
+                        <select-item value="user"></select-item>
+                        <label></label>
+                    </div>
+                </td>
+                <td class="name-col"><span><b>{{user['title']}} {{user['FirstName']}} {{user['LastName']}}</b></span><span class="sec-info">{{user['Email']}}</span></td>
+                <td>{{user['AccessLevel']}}</td>
+                <td class="site-col">{{user['Sites'] | propertyValues : 'name' | concatenate : ', '}}</td>
+                <td>{{user['Division'] | concatenate : ', '}}</td>
+                <td>{{user['Roles'] | concatenate : ', '}}</td>
+                <td>{{user['Remaining']}}</td>
+                <td>{{user['Attempted']}}</td>
+                <td>{{user['Completed']}}</td>
+                <td  class="added-date-col">{{user['DateAdded'] | date : 'dd MMM, yyyy'}}</td>
+                <td class="table-actions-col">
+                    <a href="#" class="glyphicon glyphicon-pencil edit-row tb-btns"
+                       uib-tooltip="Edit" tooltip-enable="!ac.isTouchDevice"
+                       ng-click="vc.openEditUserDialog($event, $index)"></a>
+                    <a href="#" class="glyphicon glyphicon-eye-open view-us-user tb-btns"
+                       uib-tooltip="View" tooltip-enable="!ac.isTouchDevice"
+                       ng-click="vc.openViewUserDialog($event, $index)"></a>
+                    <a href="#" class="glyphicon glyphicon-remove delete-row tb-btns"
+                       uib-tooltip="Delete" tooltip-enable="!ac.isTouchDevice"
+                       ng-click="vc.openDeleteUserDialog($event, user)"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="pagination-block fl-right">
+        <span class="elements-amount">{{1 + (20 * (vc.filter.pageNo - 1))}} - {{20 * vc.filter.pageNo < vc.usersTotalCount ? 20 * vc.filter.pageNo : vc.usersTotalCount}} of {{vc.usersTotalCount}}</span>
+        <span class="btn-default glyphicon glyphicon-chevron-left" ng-click="vc.prev()"></span>
+        <span class="btn-default glyphicon glyphicon-chevron-right" ng-click="vc.next()"></span>
+    </div>
+</div>

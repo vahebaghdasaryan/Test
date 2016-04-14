@@ -1,0 +1,11 @@
+<div ng-show="show" ng-style="style" class="alert-message">
+    <p>
+        <span class="fa {{type == 'info' ? 'fa-check' : 'fa-exclamation-triangle'}}"></span>
+        <span ng-bind-html="message | toTrusted"></span>
+    </p>
+
+    <p ng-repeat="notification in notifications">
+        <span class="fa {{notification.type == 'info' ? 'fa-check' : 'fa-exclamation-triangle'}}"></span>
+        <span ng-bind-html="notification.message | toTrusted"></span>
+    </p>
+</div>

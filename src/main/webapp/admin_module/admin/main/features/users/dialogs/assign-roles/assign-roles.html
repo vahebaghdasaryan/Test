@@ -1,0 +1,32 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">ASSIGN ROLES</h4>
+    </div>
+    <form name="assignRolesForm" novalidate>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label>Assign Roles</label>
+                <tags-input ng-model="dc.selectedRoles" placeholder="Type a role name" min-length="1">
+                    <auto-complete source="dc.rolesFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+            </div>
+
+            <div class="form-group">
+                <div class="styled-checkbox">
+                    <input id="send-email" type="checkbox" ng-model="dc.sendEmail"/>
+                    <label for="send-email">Once this action is completed, you will receive an automated confirmation email from the system. Thank you!</label>
+                </div>
+                <input type="text" class="form-control" ng-model="dc.emailToSend" ng-disabled="true"/>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+            <button type="submit" class="btn btn-default" ng-click="assignRolesForm.$valid && dc.submit()">OK</button>
+        </div>
+    </form>
+</div>

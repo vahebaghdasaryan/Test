@@ -1,0 +1,100 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">NEW RULE</h4>
+    </div>
+    <form name="newRuleForm" novalidate>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>New Rule Name:</label>
+                <input type="text" name="ruleName" class="form-control" ng-model="dc.rule.ruleName" ng-required="true"/>
+                <div class="alert alert-danger" ng-if="newRuleForm.ruleName.$invalid && newRuleForm.$submitted">
+                    <span class="glyphicon glyphicon-flag"></span>
+                    <span ng-show="newRuleForm.ruleName.$error.required">Rule name is required</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span class="group-label">Criterion for selection</span>
+            </div>
+
+            <div class="form-group">
+                <label>Sites</label>
+                <tags-input ng-model="dc.selectedSites" name="sites" placeholder="Type a site name" min-length="1"
+                            add-from-autocomplete-only="true" display-property="SiteName" ng-required="dc.selectedRoles.length == 0">
+                    <auto-complete source="dc.sitesFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+                <div class="alert alert-danger" ng-if="newRuleForm.sites.$invalid && newRuleForm.$submitted">
+                    <span class="glyphicon glyphicon-flag"></span>
+                    <span ng-show="newRuleForm.sites.$error.required">Site or role is required</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Divisions</label>
+                <tags-input ng-model="dc.selectedDivisions" placeholder="Type a division name" min-length="1">
+                    <auto-complete source="dc.divisionsFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+            </div>
+
+            <div class="form-group">
+                <label>Roles</label>
+                <tags-input ng-model="dc.selectedRoles" placeholder="Type a role name" min-length="1" ng-required="dc.selectedSites.length == 0">
+                    <auto-complete source="dc.rolesFilter($query)" min-length="1"></auto-complete>
+                </tags-input>
+                <div class="alert alert-danger" ng-if="newRuleForm.roles.$invalid && newRuleForm.$submitted">
+                    <span class="glyphicon glyphicon-flag"></span>
+                    <span ng-show="newRuleForm.roles.$error.required">Site or role is required</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span class="group-label">Target</span>
+            </div>
+
+            <div class="form-group switch-input">
+                <div class="col-combine" style="float: left;">
+                    <div class="styled-radio">
+                        <input id="target-assign-division" type="radio" name="target" value="division" ng-model="dc.target"/>
+                        <label></label>
+                    </div>
+                </div>
+                <div class="col-sm-11 no-left-padding">
+                    <label>New division</label>
+                    <tags-input ng-model="dc.selectedTargetDivisions"
+                                ng-class="{'readonly': dc.target != 'division'}"
+                                ng-required="dc.target == 'division'"
+                                tabIndex="-1" placeholder="Type a division name" min-length="1" max-tags="1">
+                        <auto-complete source="dc.divisionsFilter($query)" min-length="1"></auto-complete>
+                    </tags-input>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="form-group switch-input">
+                <div class="col-combine" style="float: left;">
+                    <div class="styled-radio">
+                        <input id="target-assign-role" type="radio" name="target" value="role" ng-model="dc.target"/>
+                        <label></label>
+                    </div>
+                </div>
+                <div class="col-sm-11 no-left-padding">
+                    <label>New role</label>
+                    <tags-input ng-model="dc.selectedTargetRoles"
+                                ng-class="{'readonly': dc.target != 'role'}"
+                                ng-required="dc.target == 'role'"
+                                tabIndex="-1" placeholder="Type a role name" min-length="1" max-tags="1">
+                        <auto-complete source="dc.rolesFilter($query)" min-length="1"></auto-complete>
+                    </tags-input>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+            <button type="submit" class="btn btn-default" ng-click="newRuleForm.$valid && dc.submit()">OK</button>
+        </div>
+    </form>
+</div>

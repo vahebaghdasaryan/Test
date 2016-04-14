@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="implHit.admin">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+
+    <title>Admin Panel</title>
+    <base href="/admin_module/">
+
+    <!-- Favicon icon -->
+    <link rel="icon" href="admin/assets/images/favicon.ico" type="image/x-icon"/>
+
+    <!-- Fonts CSS -->
+    <!--<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">-->
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="admin/assets/styles/segoe-ui-symbol.css" media="screen"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="admin/assets/styles/opthit-admin.css"/>
+    <link rel="stylesheet" href="admin/common/directives/drawer-panel/drawer-panel.css">
+
+    <!-- MomentJS -->
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/moment-timezone.js"></script>
+
+    <!-- AngularJS -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-ui-validate/dist/validate.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+
+    <!-- Ng Tags Input-->
+    <script src="bower_components/ng-tags-input/ng-tags-input.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-tags-input/ng-tags-input.css">
+
+    <!-- Fast click -->
+    <script src="bower_components/fastclick/lib/fastclick.js"></script>
+
+    <!-- Common module-->
+    <script src="admin/common/common.module.js"></script>
+    <script src="admin/common/common.config.js"></script>
+    <script src="admin/common/views/layout/header.controller.js"></script>
+    <script src="admin/common/views/dialogs/general-error/general-error.controller.js"></script>
+    <script src="admin/common/services/navigation.service.js"></script>
+    <script src="admin/common/services/util.service.js"></script>
+    <script src="admin/common/services/event.service.js"></script>
+    <script src="admin/common/directives/page-loader/page-loader.directive.js"></script>
+    <script src="admin/common/directives/navigation-menu/navigation-menu.directive.js"></script>
+    <script src="admin/common/directives/list-selection/list-selection.directive.js"></script>
+    <script src="admin/common/directives/password-confirmation/password-verify.directive.js"></script>
+    <script src="admin/common/directives/timepicker-popup/timepicker-popup.directive.js"></script>
+    <script src="admin/common/directives/form-general-error/form-general-error.directive.js"></script>
+    <script src="admin/common/directives/top-header/top-header.directive.js"></script>
+    <script src="admin/common/directives/circular-progress/circular-progress.directive.js"></script>
+    <script src="admin/common/directives/alert-message/alert-message.directive.js"></script>
+    <script src="admin/common/directives/number-only.directive.js"></script>
+    <script src="admin/common/directives/drawer-panel/drawer-panel.js"></script>
+    <script src="admin/common/filters/concatenate.filter.js"></script>
+    <script src="admin/common/filters/property-values.filter.js"></script>
+    <script src="admin/common/filters/replace-in-string.filter.js"></script>
+    <script src="admin/common/filters/to-trusted.filter.js"></script>
+
+    <!-- Main module -->
+    <script src="admin/main/app.module.js"></script>
+    <script src="admin/main/app.config.js"></script>
+    <script src="admin/main/app.constant.js"></script>
+    <script src="admin/main/app.routes.js"></script>
+    <script src="admin/main/app.controller.js"></script>
+
+    <!-- Controllers -->
+    <script src="admin/main/features/users/users-list.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/add-user/add-user.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/edit-user/edit-user.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/view-user/view-user.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/delete-user/delete-user.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/bulk-upload-users/bulk-upload-users.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/assign-roles/assign-roles.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/assign-divisions/assign-divisions.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/assign-sites/assign-sites.controller.js"></script>
+    <script src="admin/main/features/users/dialogs/bulk-delete-users/bulk-delete-users.controller.js"></script>
+
+    <script src="admin/main/features/skills/skills-list.controller.js"></script>
+
+    <script src="admin/main/features/rules/rules-list.controller.js"></script>
+    <script src="admin/main/features/rules/dialogs/new-rule/new-rule.controller.js"></script>
+    <script src="admin/main/features/rules/dialogs/apply-rule/apply-rule.controller.js"></script>
+    <script src="admin/main/features/rules/dialogs/delete-rule/delete-rule.controller.js"></script>
+
+    <script src="admin/main/features/domain-settings/domain-settings.controller.js"></script>
+    <script src="admin/main/features/domain-settings/dialogs/update-login-message/update-login-message.controller.js"></script>
+    <script src="admin/main/features/domain-settings/dialogs/setup-sso/setup-sso.controller.js"></script>
+    <script src="admin/main/features/domain-settings/dialogs/change-password/change-password.controller.js"></script>
+
+    <!-- Services -->
+    <script src="admin/main/services/http.interceptor.js"></script>
+    <script src="admin/main/services/auth.service.js"></script>
+    <script src="admin/main/services/user.service.js"></script>
+    <script src="admin/main/services/domain.service.js"></script>
+    <script src="admin/main/services/site.service.js"></script>
+    <script src="admin/main/services/role.service.js"></script>
+    <script src="admin/main/services/rule.service.js"></script>
+    <script src="admin/main/services/division.service.js"></script>
+    <script src="admin/main/services/skill.service.js"></script>
+
+    <!-- Directives -->
+    <script src="admin/main/directives/sortable/sortable.directive.js"></script>
+    <script src="admin/main/directives/file-model/file-model.directive.js"></script>
+
+</head>
+<body ng-controller="AppController as ac" ng-show="ac.signed" ng-class="{'is-ios' : ac.isIos}">
+
+    <top-header></top-header>
+    <navigation-menu></navigation-menu>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div id="main" ng-class="{'menu-always-opened':ac.alwaysShowMenu}">
+                <ng-view></ng-view>
+            </div>
+        </div>
+    </div>
+
+    <page-loader></page-loader>
+
+    <alert-message></alert-message>
+</body>
+</html>

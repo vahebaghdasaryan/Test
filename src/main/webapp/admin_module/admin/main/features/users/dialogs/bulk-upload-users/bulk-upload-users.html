@@ -1,0 +1,58 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">ADD USERS</h4>
+    </div>
+    <form name="bulkLoadUserForm" novalidate>
+    <div class="modal-body">
+        <div class="alert alert-danger" ng-if="bulkLoadUserForm.$invalid && bulkLoadUserForm.$submitted">
+            <span class="glyphicon glyphicon-flag"></span>
+            Please select a CSV file for upload
+        </div>
+
+        <div class="form-group">
+            <label style="color: #376493;"><span class="asterisk">*</span>fields are required!</label>
+        </div>
+
+        <div class="form-group file-upload">
+            <label>Choose file: <span class="asterisk">*</span><span>(Only CSV file format can be used)</span></label>
+            <div class="btn-default primary-button">Choose file
+                <input type="file" name="myFile" ng-model="dc.data.myFile.name" file-model="dc.data.myFile" accept=".csv" ng-required="true"/></div>
+            <span ng-hide="dc.data.myFile">No file selected</span>
+            <span ng-show="dc.data.myFile">{{dc.data.myFile.name}}</span>
+        </div>
+        <div class="form-group">
+            <div class="styled-checkbox">
+                <input id="delete-users" type="checkbox" ng-model="dc.data.removeUser"/>
+                <label for="delete-users">Delete Users ( Email Id in the CSV will be deleted totally from the system)</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="styled-checkbox">
+                <input id="do-not-invoke" type="checkbox" ng-model="dc.data.ignoreAutoAssign"/>
+                <label for="do-not-invoke">Do not invoke auto assign skill rules on the users.</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="styled-checkbox">
+                <input id="force-invoke" type="checkbox" ng-model="dc.data.forceAutoAssign"/>
+                <label for="force-invoke">Force invoke auto assign skill rules on all users.</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="styled-checkbox">
+                <input id="send-email" type="checkbox" ng-model="dc.data.sendEmail"/>
+                <label for="send-email">Once this action is completed, you will receive an automated confirmation email from the system. Thank you!</label>
+            </div>
+            <input type="text" class="form-control" ng-model="dc.data.email" ng-disabled="true"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+        <button class="btn btn-default" type="submit" ng-click="bulkLoadUserForm.$valid && dc.submit()">OK</button>
+    </div>
+        </form>
+</div>

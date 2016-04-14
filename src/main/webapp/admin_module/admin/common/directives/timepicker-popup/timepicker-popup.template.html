@@ -1,0 +1,12 @@
+<div uib-dropdown auto-close="outsideClick" is-open="isOpen">
+    <input type="text" name="{{wrappedInputName}}" ng-model="displayValue" placeholder="{{placeholder ? placeholder : 'hh:mm'}}"
+           class="form-control" ng-required="{{required}}" uib-dropdown-toggle readonly/>
+    <span class="glyphicon glyphicon-time"></span>
+    <ul class="uib-dropdown-menu timepicker-dropdown" >
+        <li uib-timepicker ng-model="timepicker" hour-step="hourStep? hourStep : 1" minute-step="minuteStep? minuteStep : 1" show-meridian="showMeridian ? showMeridian : true"></li>
+        <li>
+            <button type="button" class="btn btn-sm btn-secondary pull-left" ng-click="isOpen = false">Close</button>
+            <button type="button" class="btn btn-sm btn-default pull-right" ng-click="isOpen = false; done(timepicker);">Done</button>
+        </li>
+    </ul>
+</div>

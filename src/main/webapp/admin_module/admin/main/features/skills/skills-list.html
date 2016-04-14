@@ -1,0 +1,112 @@
+<div class="content-top-nav">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" href="#">SKILLS</span>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="btn btn-default" id="add_user">Add Skill</a>
+                    </li>
+                    <li class="dropdown" uib-dropdown>
+                        <a href="#" class="dropdown-toggle black" uib-dropdown-toggle role="button"
+                           aria-haspopup="true" aria-expanded="false">More Actions
+                            <span class="caret-wrap"><span class="caret"></span></span></a>
+                        <ul class="dropdown-menu uib-dropdown-menu black" aria-labelledby="split-button">
+                            <li><a href="#">Skill Bulk Load</a></li>
+                            <li><a href="#">Assign Specialty/ Division</a></li>
+                            <li><a href="#">Delete Selected</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right search" role="search">
+                    <div class="form-group search test">
+                        <input type="text" class="form-control" placeholder="Search skill"
+                               ng-model="vc.filter.search" ng-model-options="{debounce: 500}" ng-change="vc.applyFilter()">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                    <button class="btn btn-default" ng-class="{'active' : vc.showAdvanceFilter}" ng-click="vc.showAdvanceFilter = !vc.showAdvanceFilter">Advanced Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div id="filter-block" class="animate-show" ng-show="vc.showAdvanceFilter">
+        <form class="form-inline" name="advancedSearchForm">
+            <div class="filter-section">
+                <div class="form-group">
+                    <label>Filter by:</label>
+                    <select name="skillLevel"
+                            ng-options="item for item in vc.skills | propertyValues : 'Category'"
+                            ng-model="vc.filter.category" class="selectpicker form-control">
+                        <option value="">All categories</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select name="skillLevel"
+                            ng-options="item for item in vc.skills | propertyValues : 'Level'"
+                            ng-model="vc.filter.level" class="selectpicker form-control">
+                        <option value="">All levels</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fl-right">
+                <a href="#" class="text-link" ng-click="vc.resetFilter($event)">Reset</a>
+                <input type="submit" class="btn btn-default" ng-click="advancedSearchForm.$valid && vc.applyFilter()" value="APPLY">
+            </div>
+            <div class="clear"></div>
+        </form>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="table-wrap">
+    <form class="form-horizontal">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="checkbox-col">
+                    <div class="styled-checkbox">
+                        <select-all ng-model="vc.selectedUsers"></select-all>
+                    </div>
+                </th>
+                <th>SkillName</th>
+                <th>Category</th>
+                <th>Level</th>
+                <th>Specialty/Division</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="skill in vc.skills">
+                <td class="checkbox-col">
+                    <div class="styled-checkbox">
+                        <select-item value="skill"></select-item>
+                        <label></label>
+                    </div>
+                </td>
+                <td>{{skill['SkillName']}}</td>
+                <td>{{skill['Category']}}</td>
+                <td>{{skill['Level']}}</td>
+                <td>{{skill['Specialities'] | concatenate : ', '}}</td>
+                <td>
+                    <a href="#" class="glyphicon glyphicon-pencil edit-row tb-btns"
+                       uib-tooltip="Edit" tooltip-placement="left" tooltip-append-to-body="true"></a>
+                    <a href="#" class="glyphicon glyphicon-eye-open view-us-user tb-btns"
+                       uib-tooltip="View" tooltip-placement="left" tooltip-append-to-body="true"></a>
+                    <a href="#" class="glyphicon glyphicon-remove delete-row tb-btns"
+                       uib-tooltip="Delete" tooltip-placement="left" tooltip-append-to-body="true"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="pagination-block fl-right">
+        <span class="elements-amount">{{1 + (20 * (vc.filter.pageNo - 1))}} - {{20 * vc.filter.pageNo}} of {{vc.skillsTotalCount}}</span>
+        <span class="btn-default glyphicon glyphicon-chevron-left" ng-click="vc.prev()"></span>
+        <span class="btn-default glyphicon glyphicon-chevron-right" ng-click="vc.next()"></span>
+    </div>
+</div>

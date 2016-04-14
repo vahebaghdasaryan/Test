@@ -1,0 +1,26 @@
+<div>
+    <div class="modal-header">
+        <button type="button" class="close"  aria-label="Close" ng-click="dc.cancel()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">UPDATE LOGIN MESSAGE</h4>
+    </div>
+    <form name="updateLoginMessageForm">
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Login Message:</label>
+                <input type="text" class="form-control" name="message"
+                       ng-model="dc.message" maxlength="30" ng-required="true"/>
+                <div class="alert alert-danger" ng-if="updateLoginMessageForm.message.$invalid && updateLoginMessageForm.$submitted">
+                    <span class="glyphicon glyphicon-flag"></span>
+                    <span ng-show="newUserForm.message.$error.required">field is required</span>
+                    <span ng-show="newUserForm.message.$error.maxlength">max length 30 character</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" ng-click="dc.cancel()">CANCEL</button>
+            <button class="btn btn-default" type="submit" ng-click="updateLoginMessageForm.$valid && dc.submit()">UPDATE</button>
+        </div>
+    </form>
+</div>
